@@ -1,12 +1,7 @@
 <template>
   <div class="header">
         <div class="department-info">
-            <select>
-                <option>Nhà hàng Biển Đông</option>
-                <option>Nhà hàng Hải Dương</option>
-                <option>Nhà hàng Đội Cấn</option>
-                <option>Nhà hàng Cầu Giấy</option>
-            </select>
+            <Combobox @setItemSelected="setItemSelected" :end="office.end" :itemSelected="office.itemSelected" :category="office.category"  :header="office.header" :content="office.offices"></Combobox>
 
         </div>
         <div class="account-info">
@@ -18,14 +13,45 @@
 </template>
 
 <script>
+ import Combobox from "./common/Combobox.vue"
 export default {
+    methods: {
+      setItemSelected(data){
+          this.office.itemSelected = {officeId: data.id};
+          
+      }
+  },
+    components:{
+         Combobox,
+    },
+    data() {
+        return {
+            office:{
+                offices:[
+                    {officeId: 1, officeName: 'Nhà hàng Biển Đông'},
+                    {officeId: 2, officeName: 'Nhà hàng Cầu Giấy'},
+                    {officeId: 3, officeName: 'Nhà hàng Đội Cấn'},
+                ],
+                itemSelected: {officeId: 1},
+                category: 'office',
+                end: false,
+                header:'Tất cả nhà hàng',
+            },
+        }
+    },
 
 }
 </script>
 
 <style scope>
 .header {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 221px;
+    height: 60px;
+}
+
+.header {
     display: flex;
     align-items: center;
     width: calc(100% - 221px);
@@ -36,25 +62,8 @@ export default {
     .header .department-info {
         padding: 16px;
         font-size: 16px;
-        
+        min-width: 230px;
     }
-
-        .header .department-info select {
-            height: 40px;
-            min-width: 20px;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-            .header .department-info option{
-                cursor: pointer;
-                
-            }
-
-
             .header .account-info {
                 position: absolute;
                 right: 24px;

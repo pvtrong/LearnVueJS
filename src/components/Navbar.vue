@@ -43,6 +43,7 @@ export default {
 </script>
 
 <style scope>
+
     .navbar {
     position: relative;
     float: left;

@@ -5,13 +5,14 @@
 @import url('../../css/common/button.css');
 @import url('../../css/common/input.css');
 @import url('../../css/common/toolbar.css');
+@import url('../../css/common/content.css');
 @import url('../../css/common/grid.css');
 @import url('../../css/common/content.css');
 @import url('../../css/common/ui-custom.css');
 @import url('../../css/common/radio.css');
 @import url('../../lib/plugin/all.css');
 body {
-    margin: 0;
+    margin: 0 !important;
     font-family: GoogleSans-Regular;
     font-size: 13px;
 }
@@ -62,79 +63,4 @@ body {
 .grid-employee {
     margin-top: 10px;
     height: calc(100vh - 234px);
-}
-
-.el-avatar-employee {
-    padding-top: 16px;
-    padding-right: 16px;
-}
-
-.el-left {
-    width: calc(100% - 180px);
-}
-
-.el-avatar-employee .el-avatar {
-    border: 1px solid #ccc;
-    width: 160px;
-    height: 160px;
-    margin: 0 auto;
-    border-radius: 50%;
-    cursor: pointer;
-    background-image: url('../../content/img/default-avatar.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-
-.el-avatar-note {
-    font-size: 12px;
-}
-.filter-left{
-    display: flex;
-}
-.filter-left select{
-    margin-left:10px;
-    margin-right: 10px;
-}
-
-.currency-for-input {
-    position: absolute;
-    right: 40px;
-    line-height: 40px;
-    font-style: italic;
-}
-
-#txtSearchEmployee {
-    min-width: 300px;
-}
-
-@import url('../layout/content.css');
-@import url('../layout/header.css');
-@import url('../layout/content.css');
-@import url('../components/button.css');
-@import url('../components/combobox.css');
-@import url('../components/input.css');
-@import url('../components/table.css');
-
-
-body {
-    margin:0px;
-    font-family: GoogleSans-Regular;
-    font-size: 13px;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'GoogleSans-Bold';
-    src: url('../../content/font/GoogleSans-Bold.otf') format('opentype');
-}
-
-@font-face {
-    font-family: 'GoogleSans-Italic';
-    src: url('../../content/font/GoogleSans-Italic.otf') format('opentype');
-}
-
-@font-face {
-    font-family: 'GoogleSans-Regular';
-    src: url('../../content/font/GoogleSans-Regular.otf') format('opentype');
 }

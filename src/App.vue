@@ -2,7 +2,7 @@
   <div id="app">
     <Header></Header>
      <Navbar></Navbar>
-    <Content></Content>
+    <EmployeeList></EmployeeList>
   </div>
   
 </template>
@@ -10,7 +10,7 @@
 <script>
 import Header from './components/Header.vue'
 import Navbar from './components/Navbar.vue'
-import Content from './components/Content.vue'
+import EmployeeList from './components/Views/EmployeeList.vue'
 export default {
   data () {
     return {
@@ -22,7 +22,7 @@ export default {
   components: {
     Header,
     Navbar,
-    Content,
+    EmployeeList,
   }
 }
 </script>

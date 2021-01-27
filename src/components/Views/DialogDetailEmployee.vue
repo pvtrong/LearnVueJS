@@ -1,10 +1,17 @@
 <template>
-    <div class="m-dialog dialog-detail" title="Thông tin nhân viên">
+    <div :class="{isHide : isHide}" class="m-dialog dialog-detail" title="Thông tin nhân viên">
+        <div class="dialog-modal"></div>
         <div class="dialog-content">
+            <div class="dialog-header">
+                <div class="dialog-header-title">THÔNG TIN NHÂN VIÊN</div>
+                <div class="dialog-header-close">
+                    <button v-on:click="btnCancelOnClick"><b>x</b></button>
+                </div>
+            </div>
             <form class="dialog-body">
 
                 <div class=" m-flex">
-                    <div class="m-flex-5">
+                    <div class="m-flex1">
                         <div class="group-label-info">
                             A. Thông tin chung:
                         </div>
@@ -21,9 +28,7 @@
                             (Vui lòng chọn ảnh có định dạng <br><b>.jpg, .jpeg, .png, .gif. </b>)
                         </div>
                     </div>
-                    <div class="m-col el-left  m-flex-4">
-
-
+                    <div class="m-col el-left  m-flex-2">
                         <div class="m-row mg-top-0 m-flex">
                             <div class="m-col m-flex-1">
                                 <div class="m-label">Mã nhân viên (<span class="label-required">*</span>)</div>
@@ -34,15 +39,18 @@
                                 <div class="m-label">Họ và tên (<span class="label-required">*</span>)</div>
                                 <div>
                                     <input id="txtFullName" name="FullName" fieldName="FullName" required
-                                        class="input-required" type="text" required />
+                                        class="input-required" type="text"  />
                                 </div>
                             </div>
                         </div>
                         <div class="m-row m-flex">
                             <div class="m-flex-1">
-                                <m-date-picker name="DateOfBirth" id="dtDateOfBirth" label="Ngày sinh"
-                                    label-cls="m-label" input-cls="m-control" format="dd/mm/yyyy" fieldName=""
-                                    placeholder="_ _/ _ _/ _ _ _ _" />
+                                <div class="m-label">Ngày sinh</div>
+                                <input
+                                    class="m-combobox-input"
+                                    type="date"
+                                    autocomplete="off"
+                                />
                             </div>
                             <div class="m-flex-1 mg-left-10px">
                                 <div class="m-label">Giới tính</div>
@@ -70,9 +78,12 @@
                                         required /></div>
                             </div>
                             <div class="m-flex-1 mg-left-10px">
-                                <m-date-picker name="DateOfIN" id="dtDateOfIN" label="Ngày cấp" label-cls="m-label"
-                                    input-cls="m-control" format="dd/mm/yyyy" fieldName=""
-                                    placeholder="_ _/ _ _/ _ _ _ _" />
+                                <div class="m-label">Ngày cấp</div>
+                                <input
+                                    class="m-combobox-input"
+                                    type="date"
+                                    autocomplete="off"
+                                />
                             </div>
                         </div>
                     </div>
@@ -86,22 +97,16 @@
                     </div>
                 </div>
                 <div class="m-row m-flex">
-                    <div class="m-flex-5">
-                        <div class="m-flex">
-                            <div class="m-col m-flex-3">
-                                <div class="m-label">Email (<span class="label-required">*</span>)</div>
-                                <div><input id="txtEmail" name="Email" fieldName="Email" type="email" required
-                                        placeholder="example@domain.com" /></div>
-                            </div>
-                            <div class="m-flex-2 mg-left-10px">
-                                <div class="m-label">Số điện thoại (<span class="label-required">*</span>)</div>
-                                <div>
-                                    <input id="txtPhoneNumber" name="PhoneNumber" type="text" required />
-                                </div>
-                            </div>
-
+                    <div class="m-col m-flex-2">
+                        <div class="m-label">Email (<span class="label-required">*</span>)</div>
+                        <div><input id="txtEmail" name="Email" fieldName="Email" type="email" required
+                                placeholder="example@domain.com" /></div>
+                    </div>
+                    <div class="m-flex-1 mg-left-10px">
+                        <div class="m-label">Số điện thoại (<span class="label-required">*</span>)</div>
+                        <div>
+                            <input id="txtPhoneNumber" name="PhoneNumber" type="text" required />
                         </div>
-
                     </div>
                 </div>
                 <div class=" m-flex">
@@ -113,62 +118,52 @@
                     </div>
                 </div>
                 <div class="m-row m-flex">
-                    <div class=" m-flex-5">
-                        <div class="m-flex">
-                            <div class="m-flex-2">
-                                <div class="m-label">Vị trí</div>
-                                <select class="getPositions" id="cbnPosition" fieldName="PositionName"
-                                    name="PositionName" fieldValue="CustomerGroupId">
-                                </select>
-                            </div>
-                            <div class="m-flex-3 mg-left-10px">
-                                <div class="m-label">Mức lương cơ bản</div>
-                                <div><input id="txtSalary" fieldName="Salary" name="Salary" type="text"
-                                        style="text-align:right; padding-right: 56px" /><span
-                                        class="currency-for-input">(VNĐ)</span></div>
-                            </div>
-                        </div>
+                            
+                    <div class="m-flex-2 ">
+                        <div class="m-label">Mức lương cơ bản</div>
+                        <div><input id="txtSalary" fieldName="Salary" name="Salary" type="text"
+                                style="text-align:right; padding-right: 56px" /></div>
+                    </div>
+                    <div class="m-flex-1 mg-left-10px">
+                        <div class="m-label">Vị trí</div>
+                        <Postions :positionId2="this.filter.positionId"   @setItemSelected="setPositionId"></Postions>
                     </div>
                 </div>
                 <div class="m-row m-flex">
-                    <div class=" m-flex-5">
-                        <div class="m-flex">
-                            <div class="m-flex-2 ">
-                                <div class="m-label">Phòng ban</div>
-                                <select class="getDepartments" id="cbnDepartment" fieldName="DepartmentName"
-                                    name="DepartmentName" fieldValue="DepartmentId">
-                                </select>
-                            </div>
-                            <div class="m-flex-3 mg-left-10px">
-                                <div class="m-label">Mã số thuế cá nhân</div>
-                                <div><input id="txtTaxCode" fieldName="TaxCode" name="TaxCode" type="text" /></div>
-                            </div>
-                        </div>
+                    <div class="m-flex-2 ">
+                        <div class="m-label">Mã số thuế cá nhân</div>
+                        <div><input id="txtTaxCode" fieldName="TaxCode" name="TaxCode" type="text" /></div>
                     </div>
+                    <div class="m-flex-1 mg-left-10px">
+                        <div class="m-label">Phòng ban</div>
+                        <Department :departmentId2="this.filter.departmentId" @setItemSelected="setDepartmentId"></Department>
+                    </div>
+                            
                 </div>
                 <div class="m-row m-flex">
-                    <div class=" m-flex-5">
-                        <div class="m-flex">
-                            <div class="m-flex-2 ">
-                                <m-date-picker name="DateOfBeginWork" id="dtDateOfBeginWork" label="Ngày gia nhập"
-                                label-cls="m-label" input-cls="m-control" format="dd/mm/yyyy" fieldName=""
-                                placeholder="_ _/ _ _/ _ _ _ _" />
-                            </div>
-                            <div class="m-flex-3 mg-left-10px">
-                                <div class="m-label">Tình trạng công việc</div>
-                                <select id="txtStatus" name="Status" fieldName="Status" fieldValue="status"
-                                    api="/api/customergroups">
-                                    <option value="1" selected>Đang làm việc</option>
-                                    <option value="2">Đang thử việc</option>
-                                    <option value="0">Đang nghỉ việc</option>
-                                </select>
-                            </div>
-                        </div>
+                            
+                    <div class="m-flex-2 ">
+                        <div class="m-label">Tình trạng công việc</div>
+                        <select id="txtStatus" name="Status" fieldName="Status" fieldValue="status"
+                            api="/api/customergroups">
+                            <option value="1" selected>Đang làm việc</option>
+                            <option value="2">Đang thử việc</option>
+                            <option value="0">Đang nghỉ việc</option>
+                        </select>
+                    </div>
+                    <div class="m-flex-1 mg-left-10px">
+                        <div class="m-label">Ngày gia nhập</div>
+                        <input
+                            class="m-combobox-input"
+                            type="date"
+                            autocomplete="off"
+                        />
                     </div>
                 </div>
             </form>
+        </div>
         <div class="dialog-footer">
-            <button id="btnCancel" class="m-btn m-btn-default m-btn-cancel">Hủy</button>
+            <button v-on:click="btnCancelOnClick" id="btnCancel" class="m-btn m-btn-default m-btn-cancel">Hủy</button>
             <button id="btnSave" class="m-btn m-btn-default">
                 <i class="far fa-save"></i>
                 <span class="btn-text">Lưu</span>
@@ -178,29 +173,91 @@
 </template>
 
 <script>
+import Department from './Department.vue';
+import Postions from './Positions';
 export default {
+  props: {
+      isHide: Boolean
+  },
+  components:{
+    Department,
+    Postions
+  },
+  methods: {
+      
+        setDepartmentId(data){
+            this.filter.departmentId = data.id;
+        },
+        setPositionId(data){
+            this.filter.positionId = data.id;
+        },
+      btnAddOnClick(){
+      },
+      btnCancelOnClick(){
+           this.$emit('closePopup', true);
+      },
+      
+  },
+  data() {
+      return {
+          
+        filter:{
+            keyword: '',
+            departmentId: '',
+            positionId: ''
+        },
+          dialog: false,
+            //  isHide: true,
+          display: "none"
+      }
+  },
 
 }
+
+
 </script>
 
 <style scope>
+.isHide{
+    display: none;
+}
+.m-dialog {
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  right: 50%;
+  width: 700px;;
+  height: 587px ;
+  right: 400px;
+    top: -25px;
+}
 
-    .m-dialog .dialog-modal {
-        opacity:.5;
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background-color: black;
-        z-index: 999;
-    }
+.dialog-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.4;
+  z-index: -1;
+}
 
     .m-dialog .dialog-content {
         background-color: #ffffff;
         z-index: 1000;
-        border-radius: 5px;
+        border-radius: 5px 5px 0 0px;
+        
+        width: 100%;
+        height:100%;
     }
+
+    .m-dialog .dialog-content .dialog-body{
+        overflow: auto;
+        width: calc(100% - 50px);
+        height: calc(100% - 63px);
+    }
+        
 
     .m-dialog .dialog-header {
         display: flex;
@@ -226,7 +283,7 @@ export default {
                 outline: none;
                 cursor: pointer;
                 background-color: #ffffff;
-                background-image: url('../../content/icon/x.svg');
+                background-image: url('/../../assets/content/icon/x.svg');
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: 20px;
@@ -246,7 +303,7 @@ export default {
         }
 
 .dialog-content .dialog-body {
-    padding: 0px 24px 24px;
+    padding:  0px 24px;
 }
 
 
@@ -269,4 +326,37 @@ export default {
 .required-error, .required-error:focus{
     border: 1px solid #ff0000;
 }
+
+.el-left {
+    width: calc(100% - 180px);
+}
+
+.el-avatar-employee .el-avatar {
+    border: 1px solid #ccc;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+    border-radius: 50%;
+    cursor: pointer;
+    background-image: url('../../assets/content/img/default-avatar.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.el-avatar-note {
+    font-size: 12px;
+}
+.filter-left{
+    display: flex;
+}
+.filter-left .m-combobox{
+    margin-left:10px;
+    margin-right: 10px;
+}
+
+#txtSearchEmployee {
+    min-width: 300px;
+}
+
 </style>

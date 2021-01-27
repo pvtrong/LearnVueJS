@@ -23,38 +23,8 @@
 
 .input-search {
     padding-left: 40px;
+    max-width: 300px;
 }
-
-.m-date-picker {
-    display: block;
-}
-
-    .m-date-picker .dateInput {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-
-        .m-date-picker .dateInput .ui-datepicker-trigger {
-            width: 16px;
-            height: 16px;
-            position: absolute;
-            right: 0px;
-            z-index: 1;
-            border: 12px solid rgba(0, 0, 0, 0.00);
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
-        }
-
-        .m-date-picker .dateInput .dateInput-icon-box {
-            width: 40px;
-            height: 40px;
-            border-radius: 0 5px 5px 0;
-            position: absolute;
-            right: 0;
-            border-left: 1px solid #bbbbbb;
-            z-index: 0;
-        }
 
 /* checkbox */
 .checkboxIP{
@@ -62,7 +32,7 @@
 }
 
 
-.boxCheck .checkmark{
+.checkmark{
     width: 20px;
     height: 20px;
     background-color: #fff;
@@ -70,7 +40,7 @@
     content: "";
 
 }
-.boxCheck .checkmark div{
+ .checkmark div{
     width: 20px;
     height: 20px;
     background-color: #019160;
@@ -79,7 +49,7 @@
     background-position: relative;
 }
 
-.boxCheck .checkmark div div{
+ .checkmark div div{
     width: 5px;
     height: 10px;
     border: solid #fff;
@@ -95,62 +65,107 @@
 /* Combobox */
 .m-combobox {
     position: relative;
-    display: block;
+    display: flex;
+    border-radius: 4px;
+    min-width: 100px;
+    height: 40px;
+    border: 1px solid #BBB;
+}	
+
+
+.m-combobox .input {
+    width: calc(100% - 48px);
+    height: 38px;
+    outline: none;
+    margin: 0 56px 0 16px;
+    border-style: hidden;
+    line-height: 40px;
+    text-align: left;
 }
 
-    .m-combobox input {
-        padding-right: 56px;
-        z-index: 1;
-    }
 
-    .m-combobox button {
+    .m-combobox .input::placeholder{
+        font-size: 11px;
+    }
+    .m-combobox .comboboxBtn  {
         position: absolute;
         right: 0;
         width: 40px;
-        height: 40px;
-        border: 0;
-        border-left: 1px solid #bbbbbb;
-        background-color: rgba(0, 0, 170, 0.00);
+        height: 40px;	
         outline: none;
-        cursor: pointer !important;
-        z-index: 999;
-    }
+        cursor: pointer ;	
+        border-left: 1px solid #bbbbbb;
+        background-color: #fff;
+        font-size: 20px;
+        line-height: 40px;
+        text-align: center;
+    }	
 
+
+.checkmark2{
+    width: 40px;
+    height: 40px;
+    display: flex;
+}
+
+
+.m-combobox-item.itSelected .checkmark2 div {
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px  0;
+    margin: 12px auto;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    }
     .m-combobox .m-combobox-data {
-        display: none;
         position: absolute;
-        top: 61px;
+        top: 41px;
         background-color: #ffffff;
         width: 100%;
         z-index: 3;
         border-radius: 5px;
-        padding: 5px 0 5px 0;
-        z-index: 999;
-        box-sizing: border-box;
-        -webkit-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.2);
-        -moz-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.2);
-        box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.2);
+        border: 1px solid #BBB;
+        border-top: 1px solid #fff;
+
     }
 
-        .m-combobox .m-combobox-data .m-combobox-item {
-            display: flex;
-            height: 40px;
-            /*border-bottom: 1px solid #bbbbbb;*/
-            border-top: none;
-            line-height: 40px;
-            padding: 0 16px;
+
+        .m-combobox.end .m-combobox-data {
+            top: -123px;
         }
 
-            .m-combobox .m-combobox-data .m-combobox-item:hover {
-                background-color: #E9EBEE;
-                cursor: pointer;
-            }
-
-            .m-combobox .m-combobox-data .m-combobox-item:last-child {
-                border-bottom: none;
-            }
-
-        .m-combobox .m-combobox-data .mCombobox__item--selected {
-            background-color: #019160 !important;
-            color: #ffffff;
+        .isHide{
+            display: none;
+            
         }
+        /* .reverse{
+            transform: scale(-1, 1);
+            display: inline-block; 
+        } */
+
+.m-combobox .m-combobox-data .m-combobox-item {
+    display: flex;
+    height: 40px;
+    width: 100%;
+    border-top: none;
+    line-height: 40px;
+    border-radius: 4px;
+
+}
+
+.m-combobox .m-combobox-data .m-combobox-item .textCbx{
+    width: calc(100% - 40px)
+}
+
+.m-combobox .m-combobox-data .m-combobox-item:hover {
+    background-color: #E9EBEE;
+    cursor: pointer;
+}
+
+
+.m-combobox .m-combobox-data .itSelected {
+    background-color: #019160 !important;
+    color: #ffffff;
+} 
