@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <Header></Header>
-     <Navbar></Navbar>
+    <TheHeader></TheHeader>
+     <TheNavbar></TheNavbar>
     <EmployeeList></EmployeeList>
   </div>
   
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Navbar from './components/Navbar.vue'
-import EmployeeList from './components/Views/EmployeeList.vue'
+import TheHeader from './components/useOnly/TheHeader.vue'
+import TheNavbar from './components/useOnly/TheNavbar.vue'
+import EmployeeList from './views/dictionary/employee/EmployeeList.vue'
 export default {
   data () {
     return {
@@ -20,8 +20,8 @@ export default {
   },
   name: 'App',
   components: {
-    Header,
-    Navbar,
+    TheHeader,
+    TheNavbar,
     EmployeeList,
   }
 }

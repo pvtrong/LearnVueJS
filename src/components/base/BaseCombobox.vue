@@ -4,7 +4,7 @@
         <div  class="input" v-else >{{getItemSelected().shift()[`${category}Name`]}}</div>
         
         
-        <div :class="{reverse: isHide}" @click="showCombobox()" class="comboboxBtn fas fa-caret-down">
+        <div :class="{reverse: isHide, 'fa-angle-up': faCaretUp, 'fa-angle-down': faCaretDown}" @click="showCombobox()" class="comboboxBtn fas">
             <div></div>
         </div>
         <div  class="m-combobox-data" :style="end?  'top:-'+ content.length* 40 + 'px':'top:41px'" :class="{isHide: isHide}">
@@ -28,6 +28,8 @@ export default {
       'itemSelected',
       'end',
       'category',
+      'faCaretUp',
+      'faCaretDown'
   ],
   computed: {
         

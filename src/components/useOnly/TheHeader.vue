@@ -1,7 +1,7 @@
 <template>
   <div class="header">
         <div class="department-info">
-            <Combobox @setItemSelected="setItemSelected" :end="office.end" :itemSelected="office.itemSelected" :category="office.category"  :header="office.header" :content="office.offices"></Combobox>
+            <BaseCombobox :faCaretUp="true" :faCaretDown="false"  icon="up" @setItemSelected="setItemSelected" :end="office.end" :itemSelected="office.itemSelected" :category="office.category"  :header="office.header" :content="office.offices"></BaseCombobox>
 
         </div>
         <div class="account-info">
@@ -13,7 +13,7 @@
 </template>
 
 <script>
- import Combobox from "./common/Combobox.vue"
+ import BaseCombobox from "../base/BaseCombobox"
 export default {
     methods: {
       setItemSelected(data){
@@ -22,7 +22,7 @@ export default {
       }
   },
     components:{
-         Combobox,
+         BaseCombobox,
     },
     data() {
         return {
@@ -76,7 +76,7 @@ export default {
             height: 30px;
             border: 1px solid #ccc;
             border-radius: 50%;
-            background-image: url('../assets/content/icon/avatar-default.png');
+            background-image: url('../../assets/content/icon/avatar-default.png');
             background-size:contain;
         }
 

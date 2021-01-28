@@ -1,13 +1,17 @@
 <template>
-    <Combobox  v-model="itemSelected"  @setItemSelected="setItemSelected" :itemSelected="itemSelected" :category="category" :end="false" :header="header" v-bind:content="departments" ></Combobox>
+    <BaseCombobox :faCaretUp="faCaretUp" :faCaretDown="faCaretDown"  v-model="itemSelected"  @setItemSelected="setItemSelected" :itemSelected="itemSelected" :category="category" :end="end" :header="header" v-bind:content="departments" ></BaseCombobox>
 </template>
 
 <script>
  import * as axios from "axios";
- import Combobox from "../common/Combobox.vue"
+ import BaseCombobox from "../base/BaseCombobox.vue"
 export default {
   props: [
-       'departmentId2'
+       'departmentId2',
+       'end',
+      'faCaretUp',
+      'faCaretDown'
+       
   ],
 
     async created () {
@@ -36,12 +40,11 @@ export default {
 
         ],
         category: 'department',
-        end: false,
         header:'Tất cả phòng ban',
         }
     },
     components: {
-        Combobox,
+        BaseCombobox,
     }
 
 }

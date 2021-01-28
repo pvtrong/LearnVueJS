@@ -127,7 +127,6 @@
         z-index: 3;
         border-radius: 5px;
         border: 1px solid #BBB;
-        border-top: 1px solid #fff;
 
     }
 
@@ -140,16 +139,16 @@
             display: none;
             
         }
-        /* .reverse{
-            transform: scale(-1, 1);
-            display: inline-block; 
-        } */
+        .reverse{
+            transform: rotate(180deg);
+            border-left: 0px !important;
+           border-right:1px solid #BBB;
+        }
 
 .m-combobox .m-combobox-data .m-combobox-item {
     display: flex;
     height: 40px;
     width: 100%;
-    border-top: none;
     line-height: 40px;
     border-radius: 4px;
 

@@ -1,13 +1,16 @@
 <template>
-    <Combobox @setItemSelected="setItemSelected" :category="category" :itemSelected="itemSelected" :end="end" :header="header" :content="postions" ></Combobox>
+    <BaseCombobox :faCaretUp="faCaretUp" :faCaretDown="faCaretDown"  @setItemSelected="setItemSelected" :category="category" :itemSelected="itemSelected" :end="end" :header="header" :content="postions" ></BaseCombobox>
 </template>
 
 <script>
  import * as axios from "axios";
- import Combobox from "../common/Combobox.vue"
+ import BaseCombobox from "../base/BaseCombobox.vue"
 export default {
   props: [
-       'positionId2'
+       'positionId2',
+       'end',
+      'faCaretUp',
+      'faCaretDown'
   ],
     async created () {
             const response  = await axios.get("https://localhost:44349/api/Positions/" );
@@ -31,12 +34,11 @@ export default {
 
             ],
             category: 'position',
-            end: false,
             header:'Tất cả vị trí',
         }
     },
     components: {
-        Combobox,
+        BaseCombobox,
     }
 
 }

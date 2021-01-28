@@ -71,7 +71,7 @@ export default {
         .navbar .logo-box .toggle-icon {
             width: 30px;
             height: 30px;
-            background-image: url('../assets/content/img/toggle.png');
+            background-image: url('../../assets/content/img/toggle.png');
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -82,7 +82,7 @@ export default {
             height: 30px;
             margin-left: 10px;
             /*background-image: url('/content/img/amis-logo.png');*/
-            background-image: url('../assets/content/img/cukcuk-logo.png');
+            background-image: url('../../assets/content/img/cukcuk-logo.png');
             background-position: 0 center;
             background-size: contain;
             background-repeat: no-repeat;
@@ -124,22 +124,22 @@ export default {
 
 /*Tổng quan*/
 .nav-item-dashboard {
-    background-image: url('../assets/content/icon/dashboard.png');
+    background-image: url('../../assets/content/icon/dashboard.png');
 }
 
 /*Báo cáo*/
 .nav-item-report {
-    background-image: url("../assets/content/icon/report.png");
+    background-image: url("../../assets/content/icon/report.png");
 }
 
 /*Cài đặt hệ thống*/
 .nav-item-setting {
-    background-image: url("../assets/content/icon/setting.png");
+    background-image: url("../../assets/content/icon/setting.png");
 }
 
 /*Danh mục*/
 .nav-item-dic {
-    background-image: url("../assets/content/icon/dic-employee.png");
+    background-image: url("../../assets/content/icon/dic-employee.png");
 }
 
 

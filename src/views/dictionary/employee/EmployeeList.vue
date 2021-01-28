@@ -7,15 +7,15 @@
                     <div class="m-btn-icon icon-add"></div>
                     <div class="btn-text">Thêm nhân viên</div>
                 </button>
-                <DialogDetailEmployee @closePopup="closePopup" :isHide="isHideParent"></DialogDetailEmployee>
+                <EmployeeListDetail @closePopup="closePopup" :isHide="isHideParent"></EmployeeListDetail>
             </div>
         </div>
         <div class="filter-bar">
             <div class="filter-left">
                 <input v-model="filter.keyword" id="txtSearchEmployee" class="icon-search input-search" type="text"
                     placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
-                <Departments  :departmentId2="this.filter.departmentId" @setItemSelected="setDepartmentId"></Departments>
-                <Postions :positionId2="this.filter.positionId"   @setItemSelected="setPositionId"></Postions>
+                <Departments  :end="false" :faCaretUp="true" :faCaretDown="false"  :departmentId2="this.filter.departmentId" @setItemSelected="setDepartmentId"></Departments>
+                <Postions :end="false" :faCaretUp="true" :faCaretDown="false"  :positionId2="this.filter.positionId"   @setItemSelected="setPositionId"></Postions>
             </div>
             <div class="filter-right">
 
@@ -28,7 +28,7 @@
             class="grid grid-employee el-table el-table--fit el-table--scrollable-y el-table--enable-row-hover el-table--enable-row-transition">
             <table id="tbListData" cellspacing="0" cellpadding="0" border="0" class="el-table__body"
                 style="min-width: 100%;">
-                <thead class="has-gutter">
+                <thead >
                     <tr class="el-table__row">
                         <th colspan="1" rowspan="1" class="el-table_30_column_114 is-leaf" fieldName="">
                             <div class="cell">
@@ -143,7 +143,7 @@
                 <div class="btn-select-page m-btn-lastpage"></div>
             </div>
             <div class="paging-record-option">
-                <Combobox v-model="setItemSelected" @setItemSelected="setItemSelected" :end="pagi.end" :itemSelected="pagi.itemSelected" :category="pagi.category"  :header="pagi.header" :content="pagi.pagis"></Combobox>
+                <Combobox :faCaretUp="false" :faCaretDown="true"  v-model="setItemSelected" @setItemSelected="setItemSelected" :end="pagi.end" :itemSelected="pagi.itemSelected" :category="pagi.category"  :header="pagi.header" :content="pagi.pagis"></Combobox>
             </div>
         </div>
     </div>
@@ -151,10 +151,10 @@
 
 <script>
  import * as axios from "axios";
-import Combobox from "../common/Combobox.vue"
- import Departments from "../Views/Department.vue" ;
- import Postions from "../Views/Positions.vue" ;
-import DialogDetailEmployee from "./DialogDetailEmployee.vue";
+import Combobox from "../../../components/base/BaseCombobox.vue"
+ import Departments from "../../../components/common/Department.vue" ;
+ import Postions from "../../../components/common/Positions.vue" ;
+import EmployeeListDetail from "./EmployeeListDetail.vue";
 export default {
     async updated(){
         
@@ -162,7 +162,7 @@ export default {
        this.employees = response.data;
     },
     async created () {
-       const response = await axios.get("https://localhost:44349/api/Employees?limitParam=" + this.getLimit() + "&offsetParam=" + this.offset);
+       const response = await axios.get("https://localhost:44349/api/Employees/search?keyword=" + this.filter.keyword + "&departmentId=" + this.filter.departmentId + "&positionId=" + this.filter.positionId + "&limitParam=" +  this.getLimit() + "&offsetParam=" + this.offset);    
        this.employees = response.data;
     },
 
@@ -171,7 +171,7 @@ export default {
     },
     name: "Employees",
     components: {
-        DialogDetailEmployee,
+        EmployeeListDetail,
         Combobox,
         Departments,
         Postions,
@@ -256,7 +256,6 @@ export default {
                 positionId: ''
             },
             isHideParent: true,
-            limit: 30,
             offset: 0,
             employees:[
 
