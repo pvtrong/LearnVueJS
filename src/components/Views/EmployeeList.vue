@@ -15,7 +15,7 @@
                 <input v-model="filter.keyword" id="txtSearchEmployee" class="icon-search input-search" type="text"
                     placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
                 <Departments  :departmentId2="this.filter.departmentId" @setItemSelected="setDepartmentId"></Departments>
-                <Postions :positionId2="this.filter.positionId"   @setItemSelected="setPositionId"></Postions>
+                <Postions  :positionId2="this.filter.positionId"   @setItemSelected="setPositionId"></Postions>
             </div>
             <div class="filter-right">
 
@@ -143,7 +143,7 @@
                 <div class="btn-select-page m-btn-lastpage"></div>
             </div>
             <div class="paging-record-option">
-                <Combobox v-model="setItemSelected" @setItemSelected="setItemSelected" :end="pagi.end" :itemSelected="pagi.itemSelected" :category="pagi.category"  :header="pagi.header" :content="pagi.pagis"></Combobox>
+                <Combobox :faCaretUp="false" :faCaretDown="true"  v-model="setItemSelected" @setItemSelected="setItemSelected" :end="pagi.end" :itemSelected="pagi.itemSelected" :category="pagi.category"  :header="pagi.header" :content="pagi.pagis"></Combobox>
             </div>
         </div>
     </div>

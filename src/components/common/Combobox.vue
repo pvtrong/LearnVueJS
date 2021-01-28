@@ -4,7 +4,7 @@
         <div  class="input" v-else >{{getItemSelected().shift()[`${category}Name`]}}</div>
         
         
-        <div :class="{reverse: isHide}" @click="showCombobox()" class="comboboxBtn fas fa-caret-down">
+        <div :class="{reverse: isHide, 'fa-angle-up': faCaretUp, 'fa-angle-down': faCaretDown}" @click="showCombobox()" class='comboboxBtn fa'>
             <div></div>
         </div>
         <div  class="m-combobox-data" :style="end?  'top:-'+ content.length* 40 + 'px':'top:41px'" :class="{isHide: isHide}">
@@ -19,7 +19,6 @@
         </div>
     </div>
 </template>
-
 <script>
 export default {
   props: [
@@ -28,11 +27,14 @@ export default {
       'itemSelected',
       'end',
       'category',
+      'faCaretUp',
+      'faCaretDown'
   ],
   computed: {
         
   },
   methods:{
+
       itSelect(item){
           return item[`${this.category}Id`] === this.itemSelected[`${this.category}Id`];
       },
@@ -48,9 +50,9 @@ export default {
           this.showCombobox();
           let data = {id:  item[`${this.category}Id`]};
             this.$emit('setItemSelected', data);
-      }
+      },
+
   },
-  
     data() {
         return {
              isHide: true,

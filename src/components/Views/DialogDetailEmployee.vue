@@ -2,8 +2,8 @@
     <div :class="{isHide : isHide}" class="m-dialog dialog-detail" title="Thông tin nhân viên">
         <div class="dialog-modal"></div>
         <div class="dialog-content">
-            <div class="dialog-header">
-                <div class="dialog-header-title">THÔNG TIN NHÂN VIÊN</div>
+            <div @mousedown="dragElement()" class="dialog-header">
+                <div  class="dialog-header-title">THÔNG TIN NHÂN VIÊN</div>
                 <div class="dialog-header-close">
                     <button v-on:click="btnCancelOnClick"><b>x</b></button>
                 </div>
@@ -126,7 +126,7 @@
                     </div>
                     <div class="m-flex-1 mg-left-10px">
                         <div class="m-label">Vị trí</div>
-                        <Postions :positionId2="this.filter.positionId"   @setItemSelected="setPositionId"></Postions>
+                        <Postions :end="true" :faCaretUp="true" :faCaretDown="false"  :positionId2="this.filter.positionId"   @setItemSelected="setPositionId"></Postions>
                     </div>
                 </div>
                 <div class="m-row m-flex">
@@ -136,7 +136,7 @@
                     </div>
                     <div class="m-flex-1 mg-left-10px">
                         <div class="m-label">Phòng ban</div>
-                        <Department :departmentId2="this.filter.departmentId" @setItemSelected="setDepartmentId"></Department>
+                        <Department :end="true" :faCaretUp="true" :faCaretDown="false"  :departmentId2="this.filter.departmentId" @setItemSelected="setDepartmentId"></Department>
                     </div>
                             
                 </div>
@@ -184,23 +184,72 @@ export default {
     Postions
   },
   methods: {
-      
-        setDepartmentId(data){
-            this.filter.departmentId = data.id;
-        },
-        setPositionId(data){
-            this.filter.positionId = data.id;
-        },
-      btnAddOnClick(){
-      },
-      btnCancelOnClick(){
-           this.$emit('closePopup', true);
-      },
+    
+    dragElement() {
+        var body = document.body;
+        const elmnt = document.getElementsByClassName("m-dialog");
+        console.log(elmnt);
+        if (document.getElementsByClassName(elmnt[0].className )[0]) {
+        /* if present, the header is where you move the DIV from:*/
+            document.getElementsByClassName(elmnt[0].className )[0].onmousedown = this.dragMouseDown;
+        } else {
+        /* otherwise, move the DIV from anywhere inside the DIV:*/
+            body.onmousedown = this.dragMouseDown;
+        }
+    },
+
+    dragMouseDown(e) {
+        e = e || window.event;
+        // get the mouse cursor position at startup:
+        this.position.pos3 = e.clientX;
+        this.position.pos4 = e.clientY;
+        document.onmouseup = this.closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = this.elementDrag;
+    },
+
+    elementDrag(e) {
+        var elmnt = document.getElementsByClassName("m-dialog");
+        e = e || window.event;
+        // calculate the new cursor position:
+        
+        this.position.pos1 = this.position.pos3 - e.clientX;
+        this.position.pos2 = this.position.pos4 - e.clientY;
+        this.position.pos3 = e.clientX;
+        this.position.pos4 = e.clientY;
+        elmnt[0].style.top = (elmnt[0].offsetTop - this.position.pos2) + "px";
+        elmnt[0].style.left = (elmnt[0].offsetLeft - this.position.pos1) + "px";
+    },
+
+    closeDragElement() {
+        
+            /* stop moving when mouse button is released:*/
+            document.onmouseup = null;
+            document.onmousemove = null;
+    },
+    
+    setDepartmentId(data){
+        this.filter.departmentId = data.id;
+    },
+    setPositionId(data){
+        this.filter.positionId = data.id;
+    },
+    btnAddOnClick(){
+    },
+    btnCancelOnClick(){
+        this.$emit('closePopup', true);
+    },
       
   },
   data() {
       return {
           
+        position:{
+            pos1: 0,
+            pos2: 0,
+            pos3: 0,
+            pos4: 0
+        },
         filter:{
             keyword: '',
             departmentId: '',
@@ -228,7 +277,7 @@ export default {
   right: 50%;
   width: 700px;;
   height: 587px ;
-  right: 400px;
+  left: -1100px;
     top: -25px;
 }
 

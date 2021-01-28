@@ -1,5 +1,5 @@
 <template>
-    <Combobox @setItemSelected="setItemSelected" :category="category" :itemSelected="itemSelected" :end="end" :header="header" :content="postions" ></Combobox>
+    <Combobox :faCaretUp="true" :faCaretDown="false"  icon="up" @setItemSelected="setItemSelected" :category="category" :itemSelected="itemSelected" :end="end" :header="header" :content="postions" ></Combobox>
 </template>
 
 <script>

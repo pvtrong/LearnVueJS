@@ -1,7 +1,7 @@
 <template>
   <div class="header">
         <div class="department-info">
-            <Combobox @setItemSelected="setItemSelected" :end="office.end" :itemSelected="office.itemSelected" :category="office.category"  :header="office.header" :content="office.offices"></Combobox>
+            <Combobox :faCaretUp="true" :faCaretDown="false"  icon="up" @setItemSelected="setItemSelected" :end="office.end" :itemSelected="office.itemSelected" :category="office.category"  :header="office.header" :content="office.offices"></Combobox>
 
         </div>
         <div class="account-info">

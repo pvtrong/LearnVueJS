@@ -1,5 +1,5 @@
 <template>
-    <Combobox  v-model="itemSelected"  @setItemSelected="setItemSelected" :itemSelected="itemSelected" :category="category" :end="false" :header="header" v-bind:content="departments" ></Combobox>
+    <Combobox :faCaretUp="true" :faCaretDown="false" v-model="itemSelected"  @setItemSelected="setItemSelected" :itemSelected="itemSelected" :category="category" :end="false" :header="header" v-bind:content="departments" ></Combobox>
 </template>
 
 <script>

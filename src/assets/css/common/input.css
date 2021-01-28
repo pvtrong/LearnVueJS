@@ -101,7 +101,6 @@
         text-align: center;
     }	
 
-
 .checkmark2{
     width: 40px;
     height: 40px;
@@ -140,10 +139,12 @@
             display: none;
             
         }
-        /* .reverse{
-            transform: scale(-1, 1);
-            display: inline-block; 
-        } */
+        .reverse{
+            
+            transform: rotate(180deg);
+           border-left: 0px !important;
+           border-right:1px solid #BBB;
+        }
 
 .m-combobox .m-combobox-data .m-combobox-item {
     display: flex;
