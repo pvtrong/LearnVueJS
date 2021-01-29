@@ -7,7 +7,7 @@
         <div :class="{reverse: isHide, 'fa-angle-up': faCaretUp, 'fa-angle-down': faCaretDown}" @click="showCombobox()" class="comboboxBtn fas">
             <div></div>
         </div>
-        <div  class="m-combobox-data" :style="end?  'top:-'+ content.length* 40 + 'px':'top:41px'" :class="{isHide: isHide}">
+        <div  class="m-combobox-data" :style="end?  'top:-'+ content.length* 40 + 'px':'top:41px;'" :class="{isHide: isHide}">
             <div @click="setItemSelected(item)"  :id="item[`${category}Id`]" v-for="item in content" :class="{itSelected: itSelect(item, itemSelected, category)}"  :key="item[`${category}Id`]" class="m-combobox-item">
                 <div  class="checkmark2">
                     <div></div>

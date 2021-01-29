@@ -1,15 +1,16 @@
 ﻿
 
-@import url('../../css/common/common.css');
-@import url('../../css/common/icon.css');
-@import url('../../css/common/button.css');
-@import url('../../css/common/input.css');
-@import url('../../css/common/toolbar.css');
-@import url('../../css/common/content.css');
-@import url('../../css/common/grid.css');
-@import url('../../css/common/content.css');
-@import url('../../css/common/ui-custom.css');
-@import url('../../css/common/radio.css');
+@import url('./common.css');
+@import url('./icon.css');
+@import url('./button.css');
+@import url('./input.css');
+@import url('./toolbar.css');
+@import url('./content.css');
+@import url('./grid.css');
+@import url('./content.css');
+@import url('./ui-custom.css');
+@import url('./radio.css');
+@import url('./checkbox.css');
 @import url('../../lib/plugin/all.css');
 body {
     margin: 0 !important;

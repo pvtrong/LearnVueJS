@@ -32,14 +32,10 @@
                     <tr class="el-table__row">
                         <th colspan="1" rowspan="1" class="el-table_30_column_114 is-leaf" fieldName="">
                             <div class="cell">
-                                <div class="boxCheck">
-                                    <input type="checkbox" class="checkboxIP" id="checkboxIP" name="">
-                                    <div class="checkmark">
-                                        <div>
-                                            <div></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <label class="input-container">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                </label>
 
                             </div>
                         </th>
@@ -86,14 +82,11 @@
                     >
                         <td  style="width: 30px;">
                             <div class="cell">
-                                <div class="boxCheck">
-                                    <input type="checkbox" class="checkboxIP" id="" name="" :value="employee.employeeId">
-                                    <div class="checkmark">
-                                        <div>
-                                            <div></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
+                                <label class="input-container">
+                                    <input type="checkbox" :value="employee.employeeId">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </td>
                         <td>
@@ -150,20 +143,24 @@
 </template>
 
 <script>
+var temp = 1;
  import * as axios from "axios";
 import Combobox from "../../../components/base/BaseCombobox.vue"
  import Departments from "../../../components/common/Department.vue" ;
  import Postions from "../../../components/common/Positions.vue" ;
 import EmployeeListDetail from "./EmployeeListDetail.vue";
 export default {
-    async updated(){
-        
-    const response = await axios.get("https://localhost:44349/api/Employees/search?keyword=" + this.filter.keyword + "&departmentId=" + this.filter.departmentId + "&positionId=" + this.filter.positionId + "&limitParam=" +  this.getLimit() + "&offsetParam=" + this.offset);    
+    async updated() {
+        const response = await axios.get("https://localhost:44349/api/Employees/search?keyword=" + this.filter.keyword + "&departmentId=" + this.filter.departmentId + "&positionId=" + this.filter.positionId + "&limitParam=" +  this.getLimit() + "&offsetParam=" + this.offset);    
        this.employees = response.data;
+       temp = 2;
     },
     async created () {
-       const response = await axios.get("https://localhost:44349/api/Employees/search?keyword=" + this.filter.keyword + "&departmentId=" + this.filter.departmentId + "&positionId=" + this.filter.positionId + "&limitParam=" +  this.getLimit() + "&offsetParam=" + this.offset);    
-       this.employees = response.data;
+        if(temp === 1){
+            const response = await axios.get("https://localhost:44349/api/Employees/search?keyword=" + this.filter.keyword + "&departmentId=" + this.filter.departmentId + "&positionId=" + this.filter.positionId + "&limitParam=" +  this.getLimit() + "&offsetParam=" + this.offset);    
+            this.employees = response.data;
+        }
+       
     },
 
     props: {
@@ -178,7 +175,7 @@ export default {
     },
     methods: {
         rowOnClick(employee){
-            alert(employee.fullName)
+            alert(employee.employeeId)
         },
         btnRefreshClick(){
             this.filter.keyword = '';
@@ -271,7 +268,6 @@ export default {
                 end: true,
                 header:'Số nhân viên/trang',
             },
-            
             
         }
     },
