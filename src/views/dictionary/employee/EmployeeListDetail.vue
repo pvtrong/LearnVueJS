@@ -188,9 +188,8 @@ export default {
     dragElement() {
       var body = document.body;
       const elmnt = document.getElementsByClassName("m-dialog");
-      console.log(elmnt);
-      if (document.getElementsByClassName(elmnt[0].className )[0]) {
-        document.getElementsByClassName(elmnt[0].className )[0].onmousedown = this.dragMouseDown;
+      if (elmnt[0]) {
+        elmnt[0].onmousedown = this.dragMouseDown;
       } else {
         body.onmousedown = this.dragMouseDown;
       }	        
