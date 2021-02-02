@@ -8,14 +8,18 @@
             <div></div>
         </div>
         <div  class="m-combobox-data" :style="end?  'top:-'+ content.length* 40 + 'px':'top:41px;'" :class="{isHide: isHide}">
-            <div @click="setItemSelected(item)"  :id="item[`${category}Id`]" v-for="item in content" :class="{itSelected: itSelect(item, itemSelected, category)}"  :key="item[`${category}Id`]" class="m-combobox-item">
+            <div @click="setItemSelected(item)"  
+                :id="item[`${category}Id`]" 
+                v-for="item in content" 
+                :class="{itSelected: itSelect(item, itemSelected, category)}"  
+                :key="item[`${category}Id`]" 
+                class="m-combobox-item"
+            >
                 <div  class="checkmark2">
                     <div></div>
                 </div>
                 <div class="textCbx">{{item[`${category}Name`]}}</div>
-
             </div>
-            
         </div>
     </div>
 </template>
@@ -47,9 +51,9 @@ export default {
           
       },
       setItemSelected(item){
-          this.showCombobox();
-          let data = {id:  item[`${this.category}Id`]};
-            this.$emit('setItemSelected', data);
+        this.showCombobox();
+        let data = {id:  item[`${this.category}Id`]};
+        this.$emit('setItemSelected', data);
       }
   },
   

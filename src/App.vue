@@ -1,4 +1,7 @@
 <template>
+
+<!--  Phạm Văn Trọng MF710 -->
+
   <div id="app">
     <TheHeader></TheHeader>
      <TheNavbar></TheNavbar>

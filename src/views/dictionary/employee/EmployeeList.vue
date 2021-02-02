@@ -10,6 +10,7 @@
                 <EmployeeListDetail 
                     @closePopup="closePopup" 
                     :isHide="isHideParent"
+                    :employee="this.dialog.employee"
                 ></EmployeeListDetail>
             </div>
         </div>
@@ -152,13 +153,24 @@
                 <div @click="firstPage()" class="btn-select-page m-btn-firstpage"></div>
                 <div @click="prevPage()" class="btn-select-page m-btn-prev-page"></div>
                 <div  class="m-btn-list-page">
-                    <button v-for="index in 4" :key="index" :id="'page' + Math.ceil(parseInt((offset + getLimit * (index)) / getLimit -1))"  @click="changePage(Math.ceil(parseInt(offset + getLimit * (index -1 ) / getLimit + 1)))"  class="btn-pagenumber"> {{Math.ceil(parseInt((offset + getLimit * (index + 1)) / getLimit -1))}}</button>
+                    <button v-for="index in 4" :key="index" :id="'page' + Math.ceil(parseInt((offset + getLimit * (index)) / getLimit ))"  @click="changePage(Math.ceil(parseInt((offset + getLimit * (index )) / getLimit )))"  class="btn-pagenumber"> {{Math.ceil(parseInt((offset + getLimit * (index )) / getLimit))}}</button>
                 </div>
                 <div @click="nextPage()" class="btn-select-page m-btn-next-page"></div>
                 <div @click="lastPage()" class="btn-select-page m-btn-lastpage"></div>
             </div>
             <div class="paging-record-option">
-                <Combobox :faCaretUp="false" :faCaretDown="true"  v-model="setItemSelected" @setItemSelected="setItemSelected" :end="pagi.end" :itemSelected="pagi.itemSelected" :category="pagi.category"  :header="pagi.header" :content="pagi.pagis"></Combobox>
+                <Combobox 
+                    :faCaretUp="false" 
+                    :faCaretDown="true"  
+                    v-model="setItemSelected" 
+                    @setItemSelected="setItemSelected" 
+                    :end="pagi.end" 
+                    :itemSelected="pagi.itemSelected" 
+                    :category="pagi.category"  
+                    :header="pagi.header" 
+                    :content="pagi.pagis"
+                >
+                </Combobox>
             </div>
         </div>
     </div>
@@ -169,10 +181,10 @@
 
 
 
- import * as axios from "axios";
+import * as axios from "axios";
 import Combobox from "../../../components/base/BaseCombobox.vue"
- import Departments from "../../../components/common/Department.vue" ;
- import Postions from "../../../components/common/Positions.vue" ;
+import Departments from "../../../components/common/Department.vue" ;
+import Postions from "../../../components/common/Positions.vue" ;
 import EmployeeListDetail from "./EmployeeListDetail.vue";
 export default {
     data() {
@@ -191,7 +203,6 @@ export default {
             /// * Dữ liệu nhân viên
             employees:[
                 {totalEmployees : 1},
-
             ],
 
             /// * Dữ liệu phân trang
@@ -206,6 +217,16 @@ export default {
                 end: true,
                 header:'Số nhân viên/trang',
             },
+
+            // Dữ liệu của dialog
+            dialog: {
+                mode: "add",
+                employee: {
+                    positionId: '',
+                    departmentId: '',
+                    status: ''
+                }
+            }
             
         }
     },
@@ -218,7 +239,7 @@ export default {
     async created () {
             const response = await axios.get("https://localhost:44349/api/Employees/search?keyword=" + this.filter.keyword + "&departmentId=" + this.filter.departmentId + "&positionId=" + this.filter.positionId + "&limitParam=" +  this.getLimit + "&offsetParam=" + this.offset);    
             this.employees = response.data;
-            this.getLengthData();
+            this.paging();
         
        
     },
@@ -238,11 +259,22 @@ export default {
 
 
     methods: {
-        
+        convert(str) {
+        var date = new Date(str),
+            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+            day = ("0" + date.getDate()).slice(-2);
+        return [date.getFullYear(), mnth, day].join("-");
+        },
 
         ///Hàm đúp vào đê hiện dialog sửa
-        rowOnClick(employee){
-            alert(employee.employeeId)
+        async rowOnClick(employee){
+            this.dialog.employee = await employee;
+            this.dialog.employee.dateOfIN = this.convert(this.dialog.employee.dateOfIN);
+            this.dialog.employee.dateOfBirth = this.convert(this.dialog.employee.dateOfBirth);
+            this.dialog.employee.dateOfBeginWork = this.convert(this.dialog.employee.dateOfBeginWork);
+            this.dialog.mode = "edit"
+            this.isHideParent = false;
+            
         },
 
         /// *Hàm xử lý sự kiện khi click vào button refresh
@@ -252,7 +284,6 @@ export default {
             this.filter.positionId = ''
             this.firstPage();
             this.render();
-            
         },
 
         // * truyền departmentId để search từ component combobox
@@ -295,7 +326,6 @@ export default {
         formatCurrency(salary) {
             if (!salary) return "";
             return salary.split(/(?=(?:\d{3})+(?:\.|$))/g).join(".");
-
         },
 
         // * Hàm format lại ngày
@@ -316,8 +346,22 @@ export default {
         },
 
         // * Hàm xử lý sự kiện thêm
-        btnAddOnClick(){
+        async btnAddOnClick(){
+            this.dialog.employee = {
+                positionId: '',
+                departmentId: '',
+                status: ''
+            };
+            this.dialog.employee.employeeCode = await this.getNextCode(); 
             this.isHideParent = false;
+            
+            
+        },
+        /// * Hàm lấy mã số nhân viên lớn nhất
+        async getNextCode(){
+            let response =  await axios.get("https://localhost:44349/api/Employees/EmployeeCodeMax");   
+            console.log(response.data.employeeCode);
+            return response.data.employeeCode; 
         },
 
         //* Hàm mở dialog detail
@@ -325,18 +369,11 @@ export default {
             this.isHideParent = value;
         },
 
-         // * Hàm để lấy số nhân viên/trang
-        
-        
-        /// * Phân trang
-        
-        getLengthData(){
-            
-            this.paging();
-            
-        },
+        /*   
+        * ! Phân trang
+        *
+        */ 
         paging(){
-            // console.log(document.getElementsByClassName("m-btn-list-page")[0].innerHTML = '');
             if (this.offset + this.getLimit < this.getLength)
                 var str = `${this.getOffsetNew}-${this.offset + this.getLimit}/${this.getLength}`;
             else str = `${this.getOffsetNew}-${this.getLength}/${this.getLength}`;
@@ -344,11 +381,13 @@ export default {
             this.numberPageSelect(parseInt((this.offset) / this.getLimit + 1));
         },
 
+        /// * Hàm xử lý sự kiện trở về trang đầu
         firstPage() {
             this.offset = 0;
             this.render();
         },
 
+        /// Hàm xử lý sự kiện trở về trang cuối
         lastPage() {
             if (parseInt(this.getLength / this.getLimit) === this.getLength / this.getLimit) {
                 this.offset = this.getLength - this.getLimit;
@@ -359,23 +398,28 @@ export default {
             }
             this.render();
         },
+
+        /// * Hàm xử lý sự kiện next trang
         nextPage() {
             if ( this.offset + this.getLimit < this.getLength)  this.offset =  this.offset + this.getLimit;
             this.render();
         },
 
+        /// * Hàm xử lý sự kiện back trang
         prevPage() {
             if ( this.offset > this.getLimit)  this.offset =  this.offset - this.getLimit;
             else  this.offset = 0;
             this.render();
         },
 
+        /// * Hàm xử lý sự kiện khi click vào trang số number
         changePage(number) {
             
             this.offset = (number - 1) * this.getLimit;
             this.render();
         },
 
+        /// * Hàm tô xanh trang hiện tại
         numberPageSelect(a) {
             let elm = document.getElementById("page" + a);
             var parent = document.getElementsByClassName("m-btn-list-page")[0].children;
@@ -385,13 +429,19 @@ export default {
             });
             elm.classList.add("btn-pagenumber-selected");
         },
+        /// * Phân trang
+
+
+        /// * Hàm render lại dữ liệu khi click sự kiện
         async render(){
             
             console.log("render");
             const response = await axios.get("https://localhost:44349/api/Employees/search?keyword=" + this.filter.keyword + "&departmentId=" + this.filter.departmentId + "&positionId=" + this.filter.positionId + "&limitParam=" +  this.getLimit + "&offsetParam=" + this.offset);    
             this.employees = response.data;
-            this.getLengthData()
+            this.paging()
         },
+
+        /// * Hàm render lại dữ liệu khi ấn search
         changeInput(){
             this.render();
         }
@@ -401,13 +451,19 @@ export default {
     
     
     computed: {
+
+        /// * Hàm lấy độ dài dữ liệu
         getLength: function(){
             return this.employees[0].totalEmployees;
         },
+
+        /// * Hàm lấy số nhân viên/trang
         getLimit: function (){
             return this.pagi.pagis.filter(item => item.pagiId === this.pagi.itemSelected.pagiId)[0].value;
         
         },
+
+        /// * Hàm lấy offset mới của trang
         getOffsetNew: function (){
             return this.offset + 1;
         }

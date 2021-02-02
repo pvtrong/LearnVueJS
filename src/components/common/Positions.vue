@@ -13,8 +13,8 @@ export default {
       'faCaretDown'
   ],
     async created () {
-            const response  = await axios.get("https://localhost:44349/api/Positions/" );
-            this.postions = response.data;
+        const response  = await axios.get("https://localhost:44349/api/Positions/" );
+        this.postions = response.data;
     },
     methods: {
         setItemSelected(data){

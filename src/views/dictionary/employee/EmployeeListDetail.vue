@@ -32,14 +32,28 @@
                         <div class="m-row mg-top-0 m-flex">
                             <div class="m-col m-flex-1">
                                 <div class="m-label">Mã nhân viên (<span class="label-required">*</span>)</div>
-                                <div><input id="txtEmployeeCode" name="EmployeeCode" fieldName="EmployeeCode" required
-                                        type="text" /></div>
+                                <div>
+                                    <input id="txtEmployeeCode"
+                                        name="EmployeeCode" 
+                                        fieldName="EmployeeCode" 
+                                        required
+                                        type="text" 
+                                        v-model="employee.employeeCode" 
+                                    />
+                                </div>
                             </div>
                             <div class="m-flex-1 mg-left-10px">
                                 <div class="m-label">Họ và tên (<span class="label-required">*</span>)</div>
                                 <div>
-                                    <input id="txtFullName" name="FullName" fieldName="FullName" required
-                                        class="input-required" type="text"  />
+                                    <input 
+                                        id="txtFullName" 
+                                        name="FullName" 
+                                        fieldName="FullName" 
+                                        required
+                                        class="input-required" 
+                                        type="text"  
+                                        v-model="employee.fullName"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -49,6 +63,7 @@
                                 <input
                                     class="m-combobox-input"
                                     type="date"
+                                    v-model="employee.dateOfBirth"
                                     autocomplete="off"
                                 />
                             </div>
@@ -74,8 +89,16 @@
                             <div class="m-flex-1">
                                 <div class="m-label" title="Số chứng minh thư nhân dân hoặc căn cước công dân">Số CMTND/
                                     Căn cước (<span class="label-required">*</span>)</div>
-                                <div><input id="txtIdentityNumber" name="IdentifyNumber" fieldName="text" type="text"
-                                        required /></div>
+                                <div>
+                                    <input 
+                                        id="txtIdentityNumber" 
+                                        name="IdentifyNumber" 
+                                        fieldName="text" 
+                                        type="text"
+                                        required 
+                                        v-model="employee.identifyNumber"
+                                    />
+                                </div>
                             </div>
                             <div class="m-flex-1 mg-left-10px">
                                 <div class="m-label">Ngày cấp</div>
@@ -83,6 +106,7 @@
                                     class="m-combobox-input"
                                     type="date"
                                     autocomplete="off"
+                                    v-model="employee.dateOfIN"
                                 />
                             </div>
                         </div>
@@ -92,20 +116,43 @@
                     <div class=" m-flex-4">
                         <div class="m-flex-4">
                             <div class="m-label">Nơi cấp</div>
-                            <div><input id="txtPlaceOfIN" name="PlaceOfIN" type="text" /></div>
+                            <div>
+                                <input 
+                                    id="txtPlaceOfIN" 
+                                    name="PlaceOfIN" 
+                                    type="text" 
+                                    
+                                    v-model="employee.placeOfIN"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="m-row m-flex">
                     <div class="m-col m-flex-2">
                         <div class="m-label">Email (<span class="label-required">*</span>)</div>
-                        <div><input id="txtEmail" name="Email" fieldName="Email" type="email" required
-                                placeholder="example@domain.com" /></div>
+                        <div>
+                            <input 
+                                id="txtEmail" 
+                                name="Email" 
+                                fieldName="Email" 
+                                type="email" 
+                                required
+                                placeholder="example@domain.com" 
+                                v-model="employee.email"
+                            />
+                        </div>
                     </div>
                     <div class="m-flex-1 mg-left-10px">
                         <div class="m-label">Số điện thoại (<span class="label-required">*</span>)</div>
                         <div>
-                            <input id="txtPhoneNumber" name="PhoneNumber" type="text" required />
+                            <input 
+                                id="txtPhoneNumber" 
+                                name="PhoneNumber" 
+                                type="text" 
+                                required 
+                                v-model="employee.phoneNumber"
+                            />
                         </div>
                     </div>
                 </div>
@@ -121,35 +168,69 @@
                             
                     <div class="m-flex-2 ">
                         <div class="m-label">Mức lương cơ bản</div>
-                        <div><input id="txtSalary" fieldName="Salary" name="Salary" type="text"
-                                style="text-align:right; padding-right: 56px" /></div>
+                        <div>
+                            <input 
+                                id="txtSalary" 
+                                fieldName="Salary" 
+                                name="Salary" 
+                                type="text"
+                                v-model="employee.salary"
+                                style="text-align:right; padding-right: 56px" 
+                            />
+                        </div>
                     </div>
                     <div class="m-flex-1 mg-left-10px">
                         <div class="m-label">Vị trí</div>
-                        <Postions :end="true" :faCaretUp="false" :faCaretDown="true"  :positionId2="this.filter.positionId"   @setItemSelected="setPositionId"></Postions>
+                        <Postions 
+                            :end="true" 
+                            :faCaretUp="false" 
+                            :faCaretDown="true"  
+                            :positionId2="employee.positionId"   
+                            @setItemSelected="setPositionId"
+                            v-model="employee.positionId"
+                        >
+                        </Postions>
                     </div>
                 </div>
                 <div class="m-row m-flex">
                     <div class="m-flex-2 ">
                         <div class="m-label">Mã số thuế cá nhân</div>
-                        <div><input id="txtTaxCode" fieldName="TaxCode" name="TaxCode" type="text" /></div>
+                        <div>
+                            <input 
+                                id="txtTaxCode" 
+                                fieldName="TaxCode" 
+                                name="TaxCode" 
+                                type="text" 
+                                v-model="employee.taxCode"
+                            />
+                        </div>
                     </div>
                     <div class="m-flex-1 mg-left-10px">
                         <div class="m-label">Phòng ban</div>
-                        <Department :end="true" :faCaretUp="false" :faCaretDown="true"  :departmentId2="this.filter.departmentId" @setItemSelected="setDepartmentId"></Department>
+                        <Department 
+                            :end="true" 
+                            :faCaretUp="false" 
+                            :faCaretDown="true"  
+                            :departmentId2="employee.departmentId" 
+                            @setItemSelected="setDepartmentId"
+                        ></Department>
                     </div>
-                            
                 </div>
                 <div class="m-row m-flex">
-                            
                     <div class="m-flex-2 ">
                         <div class="m-label">Tình trạng công việc</div>
-                        <select id="txtStatus" name="Status" fieldName="Status" fieldValue="status"
-                            api="/api/customergroups">
-                            <option value="1" selected>Đang làm việc</option>
-                            <option value="2">Đang thử việc</option>
-                            <option value="0">Đang nghỉ việc</option>
-                        </select>
+                        <BaseCombobox 
+                            :faCaretUp="false" 
+                            :faCaretDown="true"  
+                            v-model="setItemSelected" 
+                            @setItemSelected="setItemSelected" 
+                            :end="status.end" 
+                            :itemSelected="{statusId: this.employee.status}" 
+                            :category="status.category"  
+                            :header="status.header" 
+                            :content="status.statuss"
+                        > 
+                        </BaseCombobox>
                     </div>
                     <div class="m-flex-1 mg-left-10px">
                         <div class="m-label">Ngày gia nhập</div>
@@ -157,6 +238,7 @@
                             class="m-combobox-input"
                             type="date"
                             autocomplete="off"
+                            v-model="employee.dateOfBeginWork"
                         />
                     </div>
                 </div>
@@ -164,7 +246,7 @@
         </div>
         <div class="dialog-footer">
             <button v-on:click="btnCancelOnClick" id="btnCancel" class="m-btn m-btn-default m-btn-cancel">Hủy</button>
-            <button id="btnSave" class="m-btn m-btn-default">
+            <button @click="btnAddOnClick" id="btnSave" class="m-btn m-btn-default">
                 <i class="far fa-save"></i>
                 <span class="btn-text">Lưu</span>
             </button>
@@ -173,25 +255,78 @@
 </template>
 
 <script>
+import * as axios from "axios";
 import Department from '../../../components/common/Department.vue';
 import Postions from '../../../components/common/Positions';
+import BaseCombobox from "../../../components/base/BaseCombobox"
 export default {
-  props: {
-      isHide: Boolean
+    props: [
+      'isHide',
+      'employee'
+    ],
+
+    // computed: {
+    //     getItemSelected: function() {
+    //         return this.employee.status;  
+    //     },
+    // },
+    data() {
+      return {
+         position:{
+            pos1: 0,
+            pos2: 0,
+            pos3: 0,
+            pos4: 0
+        },
+          
+        filter:{
+            keyword: '',
+            departmentId: '',
+            positionId: ''
+        },
+        status:{
+            statuss:[
+                {statusId: 0, statusName: 'Đang nghỉ việc', value:0},
+                {statusId: 1, statusName: 'Đang làm việc', value: 1},
+                {statusId: 2, statusName: 'Đang thử việc', value: 2}
+            ],
+            category: 'status',
+            end: true,
+            header:'Tất cả trạng thái',
+        },
+        employeeDialog:{
+
+
+        },
+        
+        dialog: false,
+        //  isHide: true,
+        display: "none"
+      }
   },
+  computed: {
+  },
+  
   components:{
     Department,
-    Postions
+    Postions,
+    BaseCombobox
   },
   methods: {
+    
+    // * Hàm để lấy số nhân viên/1 trang từ component combobox
+    setItemSelected(data){
+        console.log(data.id);
+        this.status.itemSelected.statusId = parseInt(data.id);
+        console.log(this.status.itemSelected.statusId);
+    },
 
     dragElement() {
-      var body = document.body;
       const elmnt = document.getElementsByClassName("m-dialog");
       if (elmnt[0]) {
         elmnt[0].onmousedown = this.dragMouseDown;
       } else {
-        body.onmousedown = this.dragMouseDown;
+        elmnt[0].onmousedown = this.dragMouseDown;
       }	        
     },
     dragMouseDown(e) {
@@ -212,8 +347,18 @@ export default {
       this.position.pos2 = this.position.pos4 - e.clientY;
       this.position.pos3 = e.clientX;
       this.position.pos4 = e.clientY;
-      elmnt[0].style.top = (elmnt[0].offsetTop - this.position.pos2) + "px";
-      elmnt[0].style.left = (elmnt[0].offsetLeft - this.position.pos1) + "px";
+      if(elmnt[0].offsetTop - this.position.pos2 > window.screen.availHeight - 794) elmnt[0].style.top = window.screen.availHeight - 794 +"px";
+      else if(elmnt[0].offsetTop - this.position.pos2 < -80)elmnt[0].style.top = -80 + "px";
+      else elmnt[0].style.top = (elmnt[0].offsetTop - this.position.pos2) + "px";
+      if(elmnt[0].offsetLeft - this.position.pos1 < -window.screen.availWidth + 180) {
+          console.log(1);
+          elmnt[0].style.left = -window.screen.availWidth  + "px" + 180;
+      }
+      else if(elmnt[0].offsetLeft - this.position.pos1 > -520){
+          console.log(2);
+          elmnt[0].style.left = -520 + "px";
+      }
+      else elmnt[0].style.left = (elmnt[0].offsetLeft - this.position.pos1) + "px";
     },
     closeDragElement() {
         
@@ -228,32 +373,19 @@ export default {
     setPositionId(data){
         this.filter.positionId = data.id;
     },
-    btnAddOnClick(){
+    async btnAddOnClick(){
+        let res = await axios.post('https://localhost:44349/api/Employees/', this.employee);
+        console.log(res);
     },
     btnCancelOnClick(){
           this.$emit('closePopup', true);
     },
+
+    /// * Convert datetime in db to date input html
+    
       
   },
-  data() {
-      return {
-         position:{
-            pos1: 0,
-            pos2: 0,
-            pos3: 0,
-            pos4: 0
-        },
-          
-        filter:{
-            keyword: '',
-            departmentId: '',
-            positionId: ''
-        },
-          dialog: false,
-            //  isHide: true,
-          display: "none"
-      }
-  }
+  
 
 }
 
