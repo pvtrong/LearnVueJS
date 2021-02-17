@@ -1,12 +1,7 @@
 <template>
 	<div class="cell">
 		<label class="input-container">
-			<input
-				class="checked"
-				v-if="this.status === true"
-				type="checkbox"
-			/>
-			<input v-else type="checkbox" />
+			<input type="checkbox" :class="{ checked: this.status }" />
 			<span @click="changeCheckbox()" class="checkmark"></span>
 		</label>
 	</div>

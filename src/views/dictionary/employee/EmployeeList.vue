@@ -334,6 +334,12 @@
 				</Combobox>
 			</div>
 		</div>
+		<BasePopUp
+			:isHide="!this.popup.isHide"
+			:header="this.popup.header"
+			:type="this.popup.type"
+			:content="this.popup.content"
+		/>
 	</div>
 </template>
 
@@ -344,6 +350,7 @@ import Combobox from "../../../components/base/BaseCombobox.vue";
 import Departments from "../../../components/common/Department.vue";
 import Postions from "../../../components/common/Positions.vue";
 import EmployeeListDetail from "./EmployeeListDetail.vue";
+import BasePopUp from "../../../components/base/BasePopUp.vue";
 export default {
 	data() {
 		return {
@@ -383,6 +390,14 @@ export default {
 				},
 			},
 
+			/// * Data của Pop up
+			popup: {
+				isHide: false,
+				header: "Không có gì",
+				type: "abc",
+				content: "Bạn có chắc muốn xóa bản ghi này không?",
+			},
+
 			selected: [],
 		};
 	},
@@ -394,7 +409,7 @@ export default {
 
 	async created() {
 		const response = await axios.get(
-			"https://localhost:44349/api/Employees/search?keyword=" +
+			"https://localhost:44349/api/Employees?keyword=" +
 				this.filter.keyword +
 				"&departmentId=" +
 				this.filter.departmentId +
@@ -419,6 +434,7 @@ export default {
 		Departments,
 		Postions,
 		BaseCheckbox,
+		BasePopUp,
 	},
 
 	methods: {
@@ -606,6 +622,7 @@ export default {
 				}
 			);
 			console.log(res);
+			document.getElementById("btnDelete").style.display = "none";
 			this.render();
 		},
 
@@ -699,7 +716,7 @@ export default {
 		async render() {
 			console.log("render");
 			const response = await axios.get(
-				"https://localhost:44349/api/Employees/search?keyword=" +
+				"https://localhost:44349/api/Employees?keyword=" +
 					this.filter.keyword +
 					"&departmentId=" +
 					this.filter.departmentId +

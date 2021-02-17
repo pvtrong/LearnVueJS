@@ -1,9 +1,9 @@
 <template>
-	<div class="m-combobox">
-		<div class="input" v-if="itemSelected[`${category}Id`] === ''">
+	<div @click="showCombobox()" class="m-combobox cbb">
+		<div class="input cbb" v-if="itemSelected[`${category}Id`] === ''">
 			{{ header }}
 		</div>
-		<div class="input" v-else>
+		<div class="input cbb" v-else>
 			{{ getItemSelected()[0][`${category}Name`] }}
 		</div>
 
@@ -13,8 +13,7 @@
 				'fa-angle-up': faCaretUp,
 				'fa-angle-down': faCaretDown,
 			}"
-			@click="showCombobox()"
-			class="comboboxBtn fas"
+			class="comboboxBtn fas cbb"
 		>
 			<div></div>
 		</div>
@@ -42,6 +41,9 @@
 
 <script>
 export default {
+	created() {
+		window.addEventListener("click", this.documentClick);
+	},
 	props: [
 		"header",
 		"content",
@@ -53,6 +55,11 @@ export default {
 	],
 	computed: {},
 	methods: {
+		documentClick(event) {
+			if (event.target.className.includes("cbb")) {
+				event.target.isHide = false;
+			} else this.isHide = true;
+		},
 		itSelect(item) {
 			return (
 				item[`${this.category}Id`] ===
@@ -71,7 +78,7 @@ export default {
 			return temp;
 		},
 		setItemSelected(item) {
-			this.showCombobox();
+			this.isHide = false;
 			let data = { id: item[`${this.category}Id`] };
 			this.$emit("setItemSelected", data);
 		},
@@ -88,12 +95,18 @@ export default {
 <style>
 /* Combobox */
 .m-combobox {
+	cursor: pointer;
 	position: relative;
 	display: flex;
 	border-radius: 4px;
 	min-width: 100px;
 	height: 38px;
 	border: 1px solid #bbb;
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer */
+	-khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+	-webkit-user-select: none; /* Chrome, Safari, and Opera */
+	-webkit-touch-callout: none; /* Disable Android and iOS callouts*/
 }
 
 .m-combobox .input {
@@ -116,10 +129,10 @@ export default {
 	height: 37px;
 	outline: none;
 	cursor: pointer;
-	border-left: 1px solid #bbbbbb;
 	background-color: #fff;
 	font-size: 20px;
-	line-height: 40px;
+	line-height: 37px;
+	font-weight: 400;
 	text-align: center;
 }
 
@@ -158,15 +171,13 @@ export default {
 }
 .reverse {
 	transform: rotate(180deg);
-	border-left: 0px !important;
-	border-right: 1px solid #bbb;
 }
 
 .m-combobox .m-combobox-data .m-combobox-item {
 	display: flex;
 	height: 38px;
 	width: 100%;
-	line-height: 40px;
+	line-height: 38px;
 	border-radius: 4px;
 }
 
